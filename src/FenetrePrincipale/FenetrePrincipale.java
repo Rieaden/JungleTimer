@@ -36,6 +36,8 @@ public class FenetrePrincipale extends Application {
 				);
 		final Group root = new Group();  
 		GridPane grid = new GridPane();
+		grid.setHgap(10);
+		grid.setVgap(10);
 		root.getChildren().add(grid);
 		Scene MyScene = new Scene(root,1000, 800);
 		primaryStage.setScene(MyScene);
