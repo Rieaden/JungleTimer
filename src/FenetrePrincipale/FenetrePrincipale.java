@@ -1,5 +1,11 @@
 package FenetrePrincipale;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -78,7 +84,7 @@ public class FenetrePrincipale extends Application {
 		//		grid.add(buttonAnnie, 0, 1);									//
 		/******************Fin Modèle de button*********************/
 
-		grid.add(new ButtonChampion("ahri"), 1, 0);
+		/*grid.add(new ButtonChampion("ahri"), 1, 0);
 		grid.add(new ButtonChampion("akali"), 2, 0);
 		grid.add(new ButtonChampion("alistar"), 3, 0);
 		grid.add(new ButtonChampion("amumu"), 4, 0);
@@ -201,10 +207,43 @@ public class FenetrePrincipale extends Application {
 
 
 		grid.add(new ButtonChampion("zilean"), 1, 11);
-		grid.add(new ButtonChampion("zyra"), 2, 11);
+		grid.add(new ButtonChampion("zyra"), 2, 11);*/
+		
+		
+		String chaine = "";
+		String fichier = "nomchampions.txt";
+		ArrayList<String> listChampions = new ArrayList<String>();
+		
+		try{
+			InputStream ips=new FileInputStream(fichier); 
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			BufferedReader br=new BufferedReader(ipsr);
+			String ligne;
+			while ((ligne=br.readLine())!=null){
+				System.out.println(ligne);
+				listChampions.add(ligne);
+			}
+			br.close(); 
+		}		
+		catch (Exception e){
+			System.out.println(e.toString());
+		}
+		
+		
+		
+		int i = 0;
+		for(int j = 0; j < (listChampions.size()/10)+1; j++)
+		{
+			for(int k = 0; k < 10; k++)
+			{
+				if(i < listChampions.size())
+				grid.add(new ButtonChampion(listChampions.get(i)), k, j);
+				i++;
+			}
+		}
 
 		Button boutonJungleTimer = new Button("Ouvrir le jungle timer");
-		grid.add(boutonJungleTimer, 3, 11);
+		grid.add(boutonJungleTimer, 10, 12);
 		
 		boutonJungleTimer.setOnAction(new EventHandler<ActionEvent>()
 				{
