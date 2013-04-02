@@ -66,7 +66,6 @@ public class FenetrePrincipale extends Application {
 		primaryStage.setScene(MyScene);
 
 
-
 		//		primaryStage.setScene(new Scene(
 		//				StackPaneBuilder.create()
 		//				.children(toggle)
@@ -210,7 +209,6 @@ public class FenetrePrincipale extends Application {
 		grid.add(new ButtonChampion("zyra"), 2, 11);*/
 		
 		
-		String chaine = "";
 		String fichier = "nomchampions.txt";
 		ArrayList<String> listChampions = new ArrayList<String>();
 		
@@ -251,7 +249,7 @@ public class FenetrePrincipale extends Application {
 			@Override
 			public void handle(ActionEvent ae)
 			{
-				JungleTimerFenetre newJungleTimerFenetre = new JungleTimerFenetre(primaryStage);
+				new JungleTimerFenetre(primaryStage);
 			}
 				});
 		
