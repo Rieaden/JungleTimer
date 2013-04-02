@@ -1,17 +1,20 @@
 package FenetrePrincipale;
 
-import ImageAccess.Images;
-import Util.ButtonChampion;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPaneBuilder;
 import javafx.stage.Stage;
+import ImageAccess.Images;
+import JungleTimerFenetre.JungleTimerFenetre;
+import Util.ButtonChampion;
 
 public class FenetrePrincipale extends Application {
 
@@ -21,8 +24,22 @@ public class FenetrePrincipale extends Application {
 		launch(args);
 	}
 	@Override public void start(final Stage primaryStage) throws Exception {
-		
 
+
+/***************************HOOKING****************************/
+//        try {
+//                GlobalScreen.registerNativeHook();
+//        }
+//        catch (NativeHookException ex) {
+//                System.err.println("There was a problem registering the native hook.");
+//                System.err.println(ex.getMessage());
+//                System.exit(1);
+//        }
+//
+//        //Construct the example object and initialize native hook.
+//        GlobalScreen.getInstance().addNativeKeyListener(new GlobalKeyListenerExample());
+/***************************************************************/
+		
 		primaryStage.setTitle("L'appli qui dechire des images");  
 		final ToggleButton toggle      = new ToggleButton();
 		final Image        unselected  = new Image(Images.getLienImage("annie"));
@@ -41,26 +58,26 @@ public class FenetrePrincipale extends Application {
 		root.getChildren().add(grid);
 		Scene MyScene = new Scene(root,1000, 800);
 		primaryStage.setScene(MyScene);
-		
-		
-		
-//		primaryStage.setScene(new Scene(
-//				StackPaneBuilder.create()
-//				.children(toggle)
-//				.style("-fx-padding:10; -fx-background-color: cornsilk;")
-//				.build()
-//				));
-//		
-		
+
+
+
+		//		primaryStage.setScene(new Scene(
+		//				StackPaneBuilder.create()
+		//				.children(toggle)
+		//				.style("-fx-padding:10; -fx-background-color: cornsilk;")
+		//				.build()
+		//				));
+		//		
+
 		//grid.add(toggle, 0, 0);
-		
+
 		/*******************Modèle de Bouton************************/
-//		final Button buttonAnnie = new Button();						//
-//		Image tempImage = new Image(Images.getLienImage("annie"));		//
-//		buttonAnnie.setGraphic(new ImageView(tempImage));				//
-//		grid.add(buttonAnnie, 0, 1);									//
+		//		final Button buttonAnnie = new Button();						//
+		//		Image tempImage = new Image(Images.getLienImage("annie"));		//
+		//		buttonAnnie.setGraphic(new ImageView(tempImage));				//
+		//		grid.add(buttonAnnie, 0, 1);									//
 		/******************Fin Modèle de button*********************/
-		
+
 		grid.add(new ButtonChampion("ahri"), 1, 0);
 		grid.add(new ButtonChampion("akali"), 2, 0);
 		grid.add(new ButtonChampion("alistar"), 3, 0);
@@ -71,7 +88,7 @@ public class FenetrePrincipale extends Application {
 		grid.add(new ButtonChampion("blitzcrank"), 8, 0);
 		grid.add(new ButtonChampion("Brand"), 9, 0);
 		grid.add(new ButtonChampion("caitlyn"), 10, 0);
-		
+
 		grid.add(new ButtonChampion("cassiopeia"), 1, 1);
 		grid.add(new ButtonChampion("chogath"), 2, 1);
 		grid.add(new ButtonChampion("corki"), 3, 1);
@@ -82,7 +99,7 @@ public class FenetrePrincipale extends Application {
 		grid.add(new ButtonChampion("elise"), 8, 1);
 		grid.add(new ButtonChampion("evelynn"), 9, 1);
 		grid.add(new ButtonChampion("ezreal"), 10, 1);
-		
+
 		grid.add(new ButtonChampion("fiddlesticks"), 1, 2);
 		grid.add(new ButtonChampion("fiora"), 2, 2);
 		grid.add(new ButtonChampion("fizz"), 3, 2);
@@ -93,7 +110,7 @@ public class FenetrePrincipale extends Application {
 		grid.add(new ButtonChampion("graves"), 8, 2);
 		grid.add(new ButtonChampion("hecarim"), 9, 2);
 		grid.add(new ButtonChampion("heimerdinger"), 10, 2);
-		
+
 		grid.add(new ButtonChampion("irelia"), 1, 3);
 		grid.add(new ButtonChampion("janna"), 2, 3);
 		grid.add(new ButtonChampion("jarvan-iv"), 3, 3);
@@ -170,7 +187,7 @@ public class FenetrePrincipale extends Application {
 		grid.add(new ButtonChampion("veigar"), 8, 9);
 		grid.add(new ButtonChampion("vi"), 9, 9);
 		grid.add(new ButtonChampion("viktor"), 10, 9);
-		
+
 		grid.add(new ButtonChampion("vladimir"), 1, 10);
 		grid.add(new ButtonChampion("volibear"), 2, 10);
 		grid.add(new ButtonChampion("warwick"), 3, 10);
@@ -181,12 +198,27 @@ public class FenetrePrincipale extends Application {
 		grid.add(new ButtonChampion("zac"), 8, 10);
 		grid.add(new ButtonChampion("zed"), 9, 10);
 		grid.add(new ButtonChampion("ziggs"), 10, 10);
-		
+
 
 		grid.add(new ButtonChampion("zilean"), 1, 11);
 		grid.add(new ButtonChampion("zyra"), 2, 11);
+
+		Button boutonJungleTimer = new Button("Ouvrir le jungle timer");
+		grid.add(boutonJungleTimer, 3, 11);
+		
+		boutonJungleTimer.setOnAction(new EventHandler<ActionEvent>()
+				{
+
+			@Override
+			public void handle(ActionEvent ae)
+			{
+				JungleTimerFenetre newJungleTimerFenetre = new JungleTimerFenetre(primaryStage);
+			}
+				});
+		
 		
 		primaryStage.show();
-		
 	}
+	
+		
 }
