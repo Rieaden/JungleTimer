@@ -17,8 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import org.jnativehook.GlobalScreen;
@@ -58,6 +58,15 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 	boolean alreadyStartedF5 = false;
 	boolean alreadyStartedF6 = false;
 	
+	boolean shiftKeyPressed = false;
+	
+	boolean signalStopF1 = false;
+	boolean signalStopF2 = false;
+	boolean signalStopF3 = false;
+	boolean signalStopF4 = false;
+	boolean signalStopF5 = false;
+	boolean signalStopF6 = false;
+	
 	HBox hboxDragon = new HBox();
 	HBox hboxBleu = new HBox();
 	HBox hboxRouge = new HBox();
@@ -75,11 +84,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 
 	public JungleTimerFenetre(Stage primaryStage)
 	{
-		this.initModality(Modality.WINDOW_MODAL);
-		this.initOwner(primaryStage);
-
 		
-
 		//MyTimerActionListener timertest = new MyTimerActionListener(5, 0);
 
 		/***************************HOOKING****************************/
@@ -131,10 +136,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 		GridPane grid = new GridPane();
 		
 		HBox hbtotal = new HBox(1);
-		
-		Image tempImage = new Image("file://D:\\Dev\\github\\JungleTimer\\src\\JungleTimerFenetre\\images\\background.png");
-		
-		hbtotal.setStyle("-fx-background-image: url(\"" + tempImage.toString() + "\"); -fx-background-repeat: stretch;");
+		hbtotal.setStyle("-fx-background-image: url(\"file:///C:/Users/Rieaden/Documents/GitHub/JungleTimer/background.png\"); -fx-background-repeat: stretch;");
 		
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -151,28 +153,28 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 	    lblBleu.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 30pt; -fx-background-color: #000000; -fx-alignment: CENTER; ");
 		lblBleu.setPrefSize(150, 50);
 	    hboxBleu.setPrefSize(150, 150);
-		hboxBleu.setStyle("-fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-71856-1306344584.png\"); -fx-background-repeat: no-repeat; -fx-background-size: 150, 150;  -fx-border-color: #00FF00;");
+		hboxBleu.setStyle("-fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-71856-1306344584.png\"); -fx-background-repeat: no-repeat; -fx-background-size: 150, 150;  -fx-border-color: #00FF00; -fx-border-radius: 5;");
 	    grid.add(lblBleu, 0, 0);
 	    grid.add(hboxBleu, 0, 1);
 	    
 	    lblRouge.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 30pt; -fx-background-color: #000000; -fx-alignment: CENTER;");
 		lblRouge.setPrefSize(150, 50);
 	    hboxRouge.setPrefSize(150, 150);
-		hboxRouge.setStyle("-fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-71856-1306345852.png\"); -fx-background-repeat: no-repeat; -fx-background-size: 150, 150;  -fx-border-color: #00FF00;");
+		hboxRouge.setStyle("-fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-71856-1306345852.png\"); -fx-background-repeat: no-repeat; -fx-background-size: 150, 150;  -fx-border-color: #00FF00; -fx-border-radius: 5;");
 	    grid.add(lblRouge, 1, 0);
 		grid.add(hboxRouge, 1, 1);
 	    
 		lblRougeEnnemi.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 30pt; -fx-background-color: #000000; -fx-alignment: CENTER;");
 		lblRougeEnnemi.setPrefSize(150, 50);
 	    hboxRougeEnnemi.setPrefSize(150, 150);
-		hboxRougeEnnemi.setStyle("-fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-71856-1306345852.png\"); -fx-background-repeat: no-repeat; -fx-background-size: 150, 150; -fx-border-color: #FF0000;");
+		hboxRougeEnnemi.setStyle("-fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-71856-1306345852.png\"); -fx-background-repeat: no-repeat; -fx-background-size: 150, 150; -fx-border-color: #FF0000; -fx-border-radius: 5;");
 	    grid.add(lblRougeEnnemi, 1, 2);
 	    grid.add(hboxRougeEnnemi, 1, 3);
 	    
 	    lblBleuEnnemi.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 30pt; -fx-background-color: #000000; -fx-alignment: CENTER;");
 		lblBleuEnnemi.setPrefSize(150, 50);
 	    hboxBleuEnnemi.setPrefSize(150, 150);
-		hboxBleuEnnemi.setStyle("-fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-71856-1306344584.png\"); -fx-background-repeat: no-repeat; -fx-background-size: 150, 150; -fx-border-color: #FF0000;");
+		hboxBleuEnnemi.setStyle("-fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-71856-1306344584.png\"); -fx-background-repeat: no-repeat; -fx-background-size: 150, 150; -fx-border-color: #FF0000; -fx-border-radius: 5;");
 	    grid.add(lblBleuEnnemi, 0, 2);
 	    grid.add(hboxBleuEnnemi, 0, 3);
 	    
@@ -210,6 +212,8 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 				}
 			}
 		});
+		
+		
 		this.setScene(new Scene(hbtotal, 315, 630));
 		this.show();
 	}
@@ -228,9 +232,21 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 	
 	@Override
 	public void nativeKeyPressed(final NativeKeyEvent e) {
-		if (e.getKeyCode() == NativeKeyEvent.VK_F5) 
-		{
+		
+		System.out.println(AppCore.inputBleu);
+		System.out.println(AppCore.inputRouge);
+		System.out.println(AppCore.inputBleuEnnemi);
+		System.out.println(AppCore.inputRougeEnnemi);
+		System.out.println(AppCore.inputDragon);	
+		System.out.println(AppCore.inputAnnulateur);
+		System.out.println(AppCore.stateSounds);
+		if (NativeKeyEvent.getKeyText(e.getKeyCode()).equals(AppCore.inputDragon)) 
+		{				
 			
+			if(shiftKeyPressed)
+			{
+				signalStopF5 = true;
+			}
 			if(!alreadyStartedF5)
 			{
 			alreadyStartedF5 = true;
@@ -242,10 +258,13 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 						@Override
 						public void run() {
 							AppCore.CompteurDragon--;
-							AppCore.TexteDragon = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurDragon)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurDragon)).get(1);
-
+							if((MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurDragon)).get(1) > 9)
+								AppCore.TexteDragon = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurDragon)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurDragon)).get(1);
+							else
+								AppCore.TexteDragon = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurDragon)).get(0) + " : 0" + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurDragon)).get(1);
 							
-							if(AppCore.CompteurDragon == 10)
+							
+							if(AppCore.CompteurDragon == 10 && AppCore.stateSounds)
 							{
 								String[] thingsToSay = new String[]
 										{
@@ -275,7 +294,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 									refreshLabels();
 								}
 							});
-							if (F11KeyPressed) 
+							if (signalStopF5) 
 							{
 										
 								if(alreadyStartedF5)
@@ -291,6 +310,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 										refreshLabels();
 									}
 								});
+								signalStopF5 = false;
 								this.cancel();
 								
 								}
@@ -299,8 +319,16 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 					}, 0, 1000);
 			}
 		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F1) 
+		System.out.println(AppCore.inputBleu);
+		System.out.println(NativeKeyEvent.getKeyText(e.getKeyCode()));
+		System.out.println("'" + AppCore.inputBleu + "' = '" + NativeKeyEvent.getKeyText(e.getKeyCode()) + "'");
+		
+		if (NativeKeyEvent.getKeyText(e.getKeyCode()).equals(AppCore.inputBleu)) 
 		{
+			if(shiftKeyPressed)
+			{
+				signalStopF1 = true;
+			}
 			if(!alreadyStartedF1)
 			{
 			alreadyStartedF1 = true;
@@ -312,10 +340,13 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 						@Override
 						public void run() {
 							AppCore.CompteurBleu--;
-							AppCore.TexteBleu = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleu)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleu)).get(1);
-
+							if((MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleu)).get(1) > 9)
+								AppCore.TexteBleu = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleu)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleu)).get(1);
+							else
+								AppCore.TexteBleu = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleu)).get(0) + " : 0" + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleu)).get(1);
 							
-							if(AppCore.CompteurBleu == 10)
+							
+							if(AppCore.CompteurBleu == 10 && AppCore.stateSounds)
 							{
 								String[] thingsToSay = new String[]
 										{
@@ -345,7 +376,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 									refreshLabels();
 								}
 							});
-							if (F7KeyPressed) 
+							if (signalStopF1) 
 							{
 										
 								if(alreadyStartedF1)
@@ -361,6 +392,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 										refreshLabels();
 									}
 								});
+								signalStopF1 = false;
 								this.cancel();
 								
 								}
@@ -369,8 +401,12 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 					}, 0, 1000);
 			}
 		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F2) 
+		if (NativeKeyEvent.getKeyText(e.getKeyCode()).equals(AppCore.inputRouge)) 
 		{
+			if(shiftKeyPressed)
+			{
+				signalStopF2 = true;
+			}
 			if(!alreadyStartedF2)
 			{
 			alreadyStartedF2 = true;
@@ -382,10 +418,13 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 						@Override
 						public void run() {
 							AppCore.CompteurRouge--;
-							AppCore.TexteRouge =(MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRouge)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRouge)).get(1);
-
+							if((MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRouge)).get(1) > 9)
+								AppCore.TexteRouge = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRouge)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRouge)).get(1);
+							else
+								AppCore.TexteRouge = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRouge)).get(0) + " : 0" + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRouge)).get(1);
 							
-							if(AppCore.CompteurRouge == 10)
+							
+							if(AppCore.CompteurRouge == 10 && AppCore.stateSounds)
 							{
 								String[] thingsToSay = new String[]
 										{
@@ -415,7 +454,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 									refreshLabels();
 								}
 							});
-							if (F8KeyPressed) 
+							if (signalStopF2) 
 							{
 										
 								if(alreadyStartedF2)
@@ -431,6 +470,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 										refreshLabels();
 									}
 								});
+								signalStopF2 = false;
 								this.cancel();
 								
 								}
@@ -439,8 +479,12 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 					}, 0, 1000);
 			}
 		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F3) 
+		if (NativeKeyEvent.getKeyText(e.getKeyCode()).equals(AppCore.inputBleuEnnemi)) 
 		{
+			if(shiftKeyPressed)
+			{
+				signalStopF3 = true;
+			}
 			if(!alreadyStartedF3)
 			{
 			alreadyStartedF3 = true;
@@ -452,10 +496,13 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 						@Override
 						public void run() {
 							AppCore.CompteurBleuEnnemi--;
-							AppCore.TexteBleuEnnemi = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleuEnnemi)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleuEnnemi)).get(1);
-
+							if((MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleuEnnemi)).get(1) > 9)
+								AppCore.TexteBleuEnnemi = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleuEnnemi)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleuEnnemi)).get(1);
+							else
+								AppCore.TexteBleuEnnemi = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleuEnnemi)).get(0) + " : 0" + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurBleuEnnemi)).get(1);
 							
-							if(AppCore.CompteurBleuEnnemi == 10)
+							
+							if(AppCore.CompteurBleuEnnemi == 10 && AppCore.stateSounds)
 							{
 								String[] thingsToSay = new String[]
 										{
@@ -485,7 +532,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 									refreshLabels();
 								}
 							});
-							if (F9KeyPressed) 
+							if (signalStopF3) 
 							{
 										
 								if(alreadyStartedF3)
@@ -501,6 +548,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 										refreshLabels();
 									}
 								});
+								signalStopF3 = false;
 								this.cancel();
 								
 								}
@@ -509,8 +557,12 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 					}, 0, 1000);
 			}
 		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F4) 
+		if (NativeKeyEvent.getKeyText(e.getKeyCode()).equals(AppCore.inputRougeEnnemi)) 
 		{
+			if(shiftKeyPressed)
+			{
+				signalStopF4 = true;
+			}
 			if(!alreadyStartedF4)
 			{
 			alreadyStartedF4 = true;
@@ -522,10 +574,13 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 						@Override
 						public void run() {
 							AppCore.CompteurRougeEnnemi--;
-							AppCore.TexteRougeEnnemi = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRougeEnnemi)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRougeEnnemi)).get(1);
-
+							if((MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRougeEnnemi)).get(1) > 9)
+								AppCore.TexteRougeEnnemi = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRougeEnnemi)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRougeEnnemi)).get(1);
+							else
+								AppCore.TexteRougeEnnemi = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRougeEnnemi)).get(0) + " : 0" + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurRougeEnnemi)).get(1);
 							
-							if(AppCore.CompteurRougeEnnemi == 10)
+							
+							if(AppCore.CompteurRougeEnnemi == 10 && AppCore.stateSounds)
 							{
 								String[] thingsToSay = new String[]
 										{
@@ -555,7 +610,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 									refreshLabels();
 								}
 							});
-							if (F10KeyPressed) 
+							if (signalStopF4) 
 							{
 										
 								if(alreadyStartedF4)
@@ -571,6 +626,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 										refreshLabels();
 									}
 								});
+								signalStopF4 = false;
 								this.cancel();
 								
 								}
@@ -579,9 +635,12 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 					}, 0, 1000);
 			};
 		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F6) 
+		if (NativeKeyEvent.getKeyText(e.getKeyCode()).equals(AppCore.inputNashor)) 
 		{
-					
+			if(shiftKeyPressed)
+			{
+				signalStopF6 = true;
+			}
 			if(!alreadyStartedF6)
 			{
 			alreadyStartedF6 = true;
@@ -595,10 +654,12 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 							
 							
 							AppCore.CompteurNashor--;
-							AppCore.TexteNashor = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurNashor)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurNashor)).get(1);
-
+							if((MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurNashor)).get(1) > 9)
+								AppCore.TexteNashor = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurNashor)).get(0) + " : " + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurNashor)).get(1);
+							else
+								AppCore.TexteNashor = (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurNashor)).get(0) + " : 0" + (MiseEnFormeMinutesSecondes.getArrayMinutesSecondes(AppCore.CompteurNashor)).get(1);
 							
-							if(AppCore.CompteurNashor == 10)
+							if(AppCore.CompteurNashor == 10 && AppCore.stateSounds)
 							{
 								String[] thingsToSay = new String[]
 										{
@@ -628,7 +689,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 									refreshLabels();
 								}
 							});
-							if (F12KeyPressed) 
+							if (signalStopF6) 
 							{
 										
 								if(alreadyStartedF6)
@@ -644,6 +705,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 										refreshLabels();
 									}
 								});
+								signalStopF6 = false;
 								this.cancel();
 								
 								}
@@ -652,60 +714,23 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 					}, 0, 1000);
 			}
 		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F7) 
+		
+		if (NativeKeyEvent.getKeyText(e.getKeyCode()).equals(AppCore.inputAnnulateur)) 
 		{
-			F7KeyPressed = true;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F8) 
-		{
-			F8KeyPressed = true;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F9) 
-		{
-			F9KeyPressed = true;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F10) 
-		{
-			F10KeyPressed = true;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F11) 
-		{
-			F11KeyPressed = true;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F12) 
-		{
-			F12KeyPressed = true;
+			System.out.println("input annulateur");
+			shiftKeyPressed = true;
 		}
 		
-		
+		System.out.println("ANNULATEUR : " + AppCore.inputAnnulateur);
+		System.out.println("GROS TEST ICI " + e.getRawCode());
 
 	}
 
 	@Override
 	public void nativeKeyReleased(NativeKeyEvent e) {
-		if (e.getKeyCode() == NativeKeyEvent.VK_F7) 
+		if (NativeKeyEvent.getKeyText(e.getKeyCode()).equals(AppCore.inputAnnulateur)) 
 		{
-			F7KeyPressed = false;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F8) 
-		{
-			F8KeyPressed = false;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F9) 
-		{
-			F9KeyPressed = false;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F10) 
-		{
-			F10KeyPressed = false;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F11) 
-		{
-			F11KeyPressed = false;
-		}
-		if (e.getKeyCode() == NativeKeyEvent.VK_F12) 
-		{
-			F12KeyPressed = false;
+			shiftKeyPressed = false;
 		}
 	}
 
@@ -741,6 +766,7 @@ class Voice
 
 	public void say(String thingToSay)
 	{
+		if(AppCore.stateSounds)
 		this.systemVoice.speak(thingToSay);
 	}
 

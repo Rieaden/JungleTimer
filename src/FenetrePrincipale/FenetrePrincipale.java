@@ -10,16 +10,22 @@ import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItemBuilder;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import ImageAccess.Images;
 import JungleTimerFenetre.JungleTimerFenetre;
+import Util.AppCore;
 import Util.ButtonChampion;
 
 public class FenetrePrincipale extends Application {
@@ -47,22 +53,77 @@ public class FenetrePrincipale extends Application {
 /***************************************************************/
 		
 		primaryStage.setTitle("L'appli qui dechire des images");  
-		final ToggleButton toggle      = new ToggleButton();
-		final Image        unselected  = new Image(Images.getLienImage("annie"));
-		final Image        selected    = new Image(Images.getLienImage("Zac"));
-		final ImageView    toggleImage = new ImageView();
-		toggle.setGraphic(toggleImage);
-		toggleImage.imageProperty().bind(Bindings
-				.when(toggle.selectedProperty())
-				.then(selected)
-				.otherwise(unselected)
-				);
+		new KeyCombination() {};
+		final Menu menuFichier = new Menu("Fichier");
+		final Menu menuJungleTimer = new Menu("Timers Jungle");
+		
+		AppCore.loadParameters();
+		
+		menuFichier.getItems().add(MenuItemBuilder.create()
+				.text("Option")
+				.onAction(
+						new EventHandler<ActionEvent>()
+						{
+							@Override public void handle(ActionEvent e)
+							{
+								new newFenetreParametre(primaryStage);
+							}
+						}).accelerator( KeyCombination.keyCombination("ctrl+o")).build());
+
+		menuFichier.getItems().add(MenuItemBuilder.create()
+				.text("Quitter")
+				.onAction(
+						new EventHandler<ActionEvent>()
+						{
+							@Override public void handle(ActionEvent e)
+							{
+								primaryStage.close();
+							}
+						}).accelerator( KeyCombination.keyCombination("ctrl+q")).build());
+		
+		menuJungleTimer.getItems().add(MenuItemBuilder.create()
+				.text("Ouvrir")
+				.onAction(
+						new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent e) 
+							{
+								new JungleTimerFenetre(primaryStage);
+							}
+						}).build());
+		
+		menuJungleTimer.getItems().add(MenuItemBuilder.create()
+				.text("Paramètres")
+				.onAction(
+						new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent e) 
+							{
+								new newFenetreParametre(primaryStage);
+							}
+						}).build());
+		
+		
+		
+		
 		final Group root = new Group();  
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
+		grid.setPadding(new Insets(30, 5, 5, 5));
+		
+		MenuBar menuBar = new MenuBar();
+		menuBar.getMenus().addAll(menuFichier, menuJungleTimer);
+		
+
 		root.getChildren().add(grid);
-		Scene MyScene = new Scene(root,1000, 800);
+		root.getChildren().add(menuBar);
+		Scene MyScene = new Scene(root,800, 800);
+		grid.prefWidthProperty().bind(primaryStage.widthProperty());
+		grid.prefHeightProperty().bind(primaryStage.heightProperty());
+		menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
 		primaryStage.setScene(MyScene);
 
 
@@ -239,21 +300,14 @@ public class FenetrePrincipale extends Application {
 				i++;
 			}
 		}
-
-		Button boutonJungleTimer = new Button("Ouvrir le jungle timer");
-		grid.add(boutonJungleTimer, 10, 12);
-		
-		boutonJungleTimer.setOnAction(new EventHandler<ActionEvent>()
-				{
-
-			@Override
-			public void handle(ActionEvent ae)
-			{
-				new JungleTimerFenetre(primaryStage);
-			}
-				});
 		
 		
+		primaryStage.setHeight(((listChampions.size()/10+1)*50) + ((listChampions.size()/10+1)*10) + 20 +25 + 10);
+		primaryStage.setWidth((10*50) + (10*10) +  10);
+		primaryStage.setResizable(false);
+		
+		
+		grid.setStyle("-fx-background-image: url(\"file:///C:/Users/Rieaden/Documents/GitHub/JungleTimer/background.jpg\"); ");
 		primaryStage.show();
 	}
 	
