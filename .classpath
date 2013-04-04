@@ -3,10 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/jfxrt.jar"/>
-	<classpathentry kind="lib" path="D:/Programmation/freetts/freetts-1.2/lib/cmu_us_kal.jar"/>
-	<classpathentry kind="lib" path="D:/Programmation/freetts/freetts-1.2/lib/cmulex.jar"/>
-	<classpathentry kind="lib" path="D:/Programmation/freetts/freetts-1.2/lib/en_us.jar"/>
-	<classpathentry kind="lib" path="D:/Programmation/freetts/freetts-1.2/lib/freetts.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rieaden/Documents/GitHub/JungleTimer/libs/JNativeHook.jar"/>
+	<classpathentry kind="lib" path="D:/Dev/github/JungleTimer/libs/cmu_us_kal.jar"/>
+	<classpathentry kind="lib" path="D:/Dev/github/JungleTimer/libs/cmulex.jar"/>
+	<classpathentry kind="lib" path="D:/Dev/github/JungleTimer/libs/en_us.jar"/>
+	<classpathentry kind="lib" path="D:/Dev/github/JungleTimer/libs/freetts.jar"/>
+	<classpathentry kind="lib" path="D:/Dev/github/JungleTimer/libs/JNativeHook.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

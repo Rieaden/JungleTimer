@@ -7,23 +7,17 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItemBuilder;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import ImageAccess.Images;
 import JungleTimerFenetre.JungleTimerFenetre;
 import Util.AppCore;
 import Util.ButtonChampion;
@@ -108,6 +102,8 @@ public class FenetrePrincipale extends Application {
 		
 		
 		
+		
+		
 		final Group root = new Group();  
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
@@ -120,7 +116,7 @@ public class FenetrePrincipale extends Application {
 
 		root.getChildren().add(grid);
 		root.getChildren().add(menuBar);
-		Scene MyScene = new Scene(root,800, 800);
+		Scene MyScene = new Scene(root, 800, 800);
 		grid.prefWidthProperty().bind(primaryStage.widthProperty());
 		grid.prefHeightProperty().bind(primaryStage.heightProperty());
 		menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
@@ -307,7 +303,7 @@ public class FenetrePrincipale extends Application {
 		primaryStage.setResizable(false);
 		
 		
-		grid.setStyle("-fx-background-image: url(\"file:///C:/Users/Rieaden/Documents/GitHub/JungleTimer/background.jpg\"); ");
+		grid.setStyle("-fx-background-image: url(\"file:///D:/Dev/github/JungleTimer/background.jpg\"); ");
 		primaryStage.show();
 	}
 	

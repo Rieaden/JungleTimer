@@ -34,8 +34,8 @@ public class AppCore {
 
 	public static void refreshValues()
 	{
-		CompteurDragon = 20;
-		CompteurNashor = 20;
+		CompteurDragon = 360;
+		CompteurNashor = 420;
 		CompteurBleu   = 300;
 		CompteurRouge  = 300;
 		CompteurBleuEnnemi = 300;
