@@ -1,45 +1,35 @@
 package JungleTimerFenetre;
 
 
-
+//TODO: P2P
+//TODO: Click qui traverse l'overlay
+//TODO: Voix Meilleure
 
 
 import java.awt.GraphicsEnvironment;
-import java.awt.Paint;
-import java.awt.PaintContext;
 import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.ColorModel;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JDialog;
-
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+
+import javax.swing.JDialog;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -49,10 +39,6 @@ import org.jnativehook.keyboard.NativeKeyListener;
 import Util.AppCore;
 import Util.MiseEnFormeMinutesSecondes;
 
-
-import javafx.scene.paint.Color;
-
-import com.sun.javafx.tk.Toolkit;
 import com.sun.speech.freetts.VoiceManager;
 
 
@@ -97,6 +83,8 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 	boolean signalStopF4 = false;
 	boolean signalStopF5 = false;
 	boolean signalStopF6 = false;
+
+	int flagdedebuggage = 0;
 
 	Point refPoint;
 
@@ -172,7 +160,12 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 
 		HBox hbtotal = new HBox(1);
 
-		hbtotal.setStyle("-fx-background-image: url(\"file:///D:/Dev/github/JungleTimer/background.png\");");
+
+		//hbtotal.setStyle("-fx-background-image: url(\"file:///C:/Users/Rieaden/Documents/GitHub/JungleTimer/background.png\");");
+
+		String image = JungleTimerFenetre.class.getResource("images/background.png").toExternalForm();
+
+		hbtotal.setStyle("-fx-background-image: url(\"" + image + "\");");
 
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -229,9 +222,9 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 		lblBleuEnnemiOverlay.setPrefSize(50, 50);
 		lblRougeEnnemiOverlay.setStyle("-fx-stroke: black; -fx-stroke-width: 5; -fx-alignment: CENTER; -fx-alignment: CENTER; -fx-text-fill: #FFFFFF; -fx-font-size: 20pt; -fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-71856-1306345852.png\"); -fx-background-repeat: no-repeat; -fx-background-size: 50, 50; -fx-border-color: #FF0000; -fx-border-radius: 5;");
 		lblRougeEnnemiOverlay.setPrefSize(50, 50);
-		lblDragonOverlay.setStyle("-fx-stroke: black; -fx-stroke-width: 5; -fx-alignment: CENTER; -fx-alignment: CENTER; -fx-text-fill: #FFFFFF; -fx-font-size: 20pt; -fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-96192-1267331210.jpg\"); -fx-background-repeat: no-repeat; -fx-background-size: 50, 50;");
+		lblDragonOverlay.setStyle("-fx-stroke: black; -fx-stroke-width: 5; -fx-alignment: CENTER; -fx-text-border: black; -fx-alignment: CENTER; -fx-text-fill: #FFFFFF; -fx-font-size: 20pt; -fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-96192-1267331210.jpg\"); -fx-background-repeat: no-repeat; -fx-background-size: 50, 50;");
 		lblDragonOverlay.setPrefSize(50, 50);
-		lblNashorOverlay.setStyle("-fx-stroke: black; -fx-stroke-width: 5; -fx-alignment: CENTER; -fx-alignment: CENTER; -fx-text-fill: #FFFFFF; -fx-font-size: 20pt; -fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-96192-1267331204.jpg\"); -fx-alignment: CENTER; -fx-background-size: 50, 50;");
+		lblNashorOverlay.setStyle("-fx-alignment: CENTER; -fx-alignment: CENTER; -fx-text-fill: white; -fx-font-size: 20pt; -fx-background-image: url(\"http://www.gamereplays.org/community/uploads/post-96192-1267331204.jpg\"); -fx-alignment: CENTER; -fx-background-size: 50, 50; -fx-stroke:#1F6592; -fx-stroke-width: 5; ");
 		lblNashorOverlay.setPrefSize(50, 50);
 
 
@@ -273,80 +266,111 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 
 		jDialogReference = jDialog;
 
-		final JFXPanel fxPanel = new JFXPanel();
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				final Group root = new Group();  
-				GridPane grid = new GridPane();
-				grid.setHgap(10);
-				grid.setVgap(10);
-				grid.setPadding(new Insets(5, 5, 5, 5));
+		if(AppCore.stateOverlay)
+		{
+			final JFXPanel fxPanel = new JFXPanel();
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					final Group root = new Group();  
+					GridPane grid = new GridPane();
+					grid.setHgap(10);
+					grid.setVgap(10);
+					grid.setPadding(new Insets(5, 5, 5, 5));
+					grid.add(lblBleuOverlay, 0, 0);
+					grid.add(lblRougeOverlay, 1, 0);
+					grid.add(lblDragonOverlay, 2, 0);
+					grid.add(lblNashorOverlay, 3, 0);
+					grid.add(lblBleuEnnemiOverlay, 4, 0);
+					grid.add(lblRougeEnnemiOverlay, 5, 0);
 
-				grid.add(lblBleuOverlay, 0, 0);
-				grid.add(lblRougeOverlay, 1, 0);
-				grid.add(lblDragonOverlay, 2, 0);
-				grid.add(lblNashorOverlay, 3, 0);
-				grid.add(lblBleuEnnemiOverlay, 4, 0);
-				grid.add(lblRougeEnnemiOverlay, 5, 0);
+					root.setStyle("-fx-background-color: rgba(0,0,0,0);");
+					grid.setStyle("-fx-background-color: rgba(0,0,0,0);");
+					
+					root.setFocusTraversable(true);
+					
+					root.setOnMousePressed(new EventHandler<MouseEvent>() {
 
-				root.setStyle("-fx-background-color: rgba(0,0,0,0);");
-				grid.setStyle("-fx-background-color: rgba(0,0,0,0);");
-
-				root.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-					@Override
-					public void handle(MouseEvent event) 
-					{
-						refPoint = new Point((int)(event.getX()), (int)(event.getY()));
-					}
-				});
-
-				root.setOnMouseReleased(new EventHandler<MouseEvent>() {
-
-					@Override
-					public void handle(MouseEvent event) 
-					{
-						refPoint = null;
-					}
-				});
-
-				root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-
-					@Override
-					public void handle(MouseEvent event) {
-
-						if (refPoint == null) {
+						@Override
+						public void handle(MouseEvent event) 
+						{
 							refPoint = new Point((int)(event.getX()), (int)(event.getY()));
 						}
-						else 
+					});
+
+					root.setOnMouseReleased(new EventHandler<MouseEvent>() {
+
+						@Override
+						public void handle(MouseEvent event) 
 						{
-							int dx = (int) (event.getX() - refPoint.x);
-							int dy = (int) (event.getY() - refPoint.y);
-							jDialog.setLocation(jDialog.getX() + dx ,  jDialog.getY() + dy);
-							refPoint.x = (int) event.getX();
-							refPoint.y = (int) event.getY();
+							refPoint = null;
 						}
-					}
-				});
-				root.getChildren().add(grid);
-				Scene scene = new Scene(root, 800, 800);
-				scene.setFill(Color.TRANSPARENT);
-				fxPanel.setScene(scene);
-				fxPanel.getRootPane().setOpaque(false);
-			}
-		});
-		jDialog.add(fxPanel);
-		jDialog.setSize(360 + 150, 60);
-		jDialog.setUndecorated(true);
-		jDialog.getRootPane().setOpaque(false);
-		jDialog.setBackground(new java.awt.Color(0, 0, 0, 0));
-		jDialog.setAlwaysOnTop(true);
-		System.out.println(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth());
-		jDialog.setLocation((int)(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth()/5), 0);
-		jDialog.setVisible(true);
-		jDialog.setFocusable(false);
-		
+					});
+
+					root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+
+						@Override
+						public void handle(MouseEvent event) {
+
+
+
+							/*int dx = (int) (event.getX() - refPoint.x);
+								int dy = (int) (event.getY() - refPoint.y);
+								jDialog.setLocation(jDialog.getX() + dx ,  jDialog.getY() + dy);
+								refPoint.x = (int) event.getX();
+								refPoint.y = (int) event.getY();*/
+
+							int thisX = jDialog.getLocation().x;
+							int thisY = jDialog.getLocation().y;
+
+							// Determine how much the mouse moved since the initial click
+							int xMoved = (int) ((thisX + event.getX()) - (thisX + refPoint.x));
+							int yMoved = (int) ((thisY + event.getY()) - (thisY + refPoint.y));
+
+							// Move window to this position
+							int X = thisX + xMoved;
+							int Y = thisY + yMoved;
+							jDialog.setLocation(X, Y);
+
+
+						}
+
+					});
+
+					root.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+						@Override
+						public void handle(MouseEvent event) {
+							// TODO Auto-generated method stub
+							event.consume();
+						}
+					});
+
+					root.getChildren().add(grid);
+					
+					Scene scene = new Scene(root, 800, 800);
+					scene.setFill(Color.TRANSPARENT);
+					fxPanel.setScene(scene);
+					fxPanel.getRootPane().setRequestFocusEnabled(false);
+					//fxPanel.getRootPane().setOpaque(false);
+					fxPanel.setFocusable(false);
+					fxPanel.getRootPane().setFocusable(false);
+				}
+			});
+			jDialog.add(fxPanel);
+			jDialog.setSize(360 + 150, 60);
+
+			jDialog.setUndecorated(true);
+			jDialog.getRootPane().setOpaque(false);
+			jDialog.setBackground(new java.awt.Color(0, 0, 0, 0));
+			jDialog.setAlwaysOnTop(true);
+			System.out.println(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth());
+			jDialog.setLocation((int)(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth()/5), 0);
+			jDialog.setVisible(true);
+			jDialog.setFocusable(false);
+			lblBleuOverlay.setMouseTransparent(true);
+		}
+
 
 	}
 
@@ -835,7 +859,6 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 											@Override
 											public void run() 
 											{
-												refreshLabels();
 											}
 										});
 										signalStopF6 = false;

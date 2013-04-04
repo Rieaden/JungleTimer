@@ -1,9 +1,16 @@
 package FenetrePrincipale;
 
+//TODO: CompoManager
+//TODO: P2P 
+
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -266,6 +273,27 @@ public class FenetrePrincipale extends Application {
 		grid.add(new ButtonChampion("zyra"), 2, 11);*/
 		
 		
+		if(!(new File("nomchampions.txt")).exists())
+		{
+			(new File("nomchampions.txt")).createNewFile();
+			try {
+				String fichier = "nomchampions.txt";
+				FileWriter fw = new FileWriter (fichier);
+				BufferedWriter bw = new BufferedWriter (fw);
+				PrintWriter fichierSortie = new PrintWriter (bw); 
+				for(int i=0 ; i < AppCore.listChampionsDefault.size(); i++ )
+				{
+
+					fichierSortie.println (AppCore.listChampionsDefault.get(i));
+				}
+				fichierSortie.close();
+				System.out.println("Le fichier " + fichier + " a été créé!"); 
+			}
+			catch (Exception e1){
+				System.out.println(e1.toString());
+			}
+		}
+		
 		String fichier = "nomchampions.txt";
 		ArrayList<String> listChampions = new ArrayList<String>();
 		
@@ -302,8 +330,8 @@ public class FenetrePrincipale extends Application {
 		primaryStage.setWidth((10*50) + (10*10) +  10);
 		primaryStage.setResizable(false);
 		
-		
-		grid.setStyle("-fx-background-image: url(\"file:///D:/Dev/github/JungleTimer/background.jpg\"); ");
+		String image = JungleTimerFenetre.class.getResource("images/background.jpg").toExternalForm();
+		grid.setStyle("-fx-background-image: url(\"" + image + "\"); ");
 		primaryStage.show();
 	}
 	
