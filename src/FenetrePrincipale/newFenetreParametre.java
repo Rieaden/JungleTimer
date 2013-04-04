@@ -37,7 +37,6 @@ public class newFenetreParametre extends Stage
 	Label labelParamNashor = new Label("Toggle Nashor : ");
 	Label labelParamAnnulateur = new Label("Canceling Timer Input : ");
 	Label labelParamSounds = new Label("Sounds : ");
-	Label labelParamOverlay = new Label("Overlay : ");
 
 	TextField tfParamBleu = new TextField();
 	TextField tfParamRouge = new TextField();
@@ -48,7 +47,6 @@ public class newFenetreParametre extends Stage
 	TextField tfParamAnnulateur = new TextField();
 
 	CheckBox checkboxSounds = new CheckBox();
-	CheckBox checkboxOverlay = new CheckBox();
 
 
 
@@ -83,7 +81,6 @@ public class newFenetreParametre extends Stage
 		tfParamNashor.setText(listParam.get(5).substring(listParam.get(5).lastIndexOf(" ")+1));
 		tfParamAnnulateur.setText(listParam.get(6).substring(listParam.get(6).lastIndexOf(" ")+1));
 		checkboxSounds.setSelected(listParam.get(7).substring(listParam.get(7).lastIndexOf(" ")+1).contains("YES"));
-		checkboxOverlay.setSelected(listParam.get(7).substring(listParam.get(7).lastIndexOf(" ")+1).contains("YES"));
 
 		tfParamBleu.setEditable(false);
 		tfParamBleu.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -194,14 +191,6 @@ public class newFenetreParametre extends Stage
 					{
 						fichierSortie.println ("Sounds : NO");
 					}
-					if(checkboxOverlay.isSelected())
-					{
-						fichierSortie.println ("Overlay : YES");
-					}
-					else
-					{
-						fichierSortie.println ("Overlay : NO");
-					}
 
 
 
@@ -225,14 +214,6 @@ public class newFenetreParametre extends Stage
 				else
 				{
 					AppCore.stateSounds = false;
-				}
-				if(checkboxOverlay.isSelected())
-				{
-					AppCore.stateOverlay = true;
-				}
-				else
-				{
-					AppCore.stateOverlay = false;
 				}
 				close();
 			}
@@ -265,7 +246,6 @@ public class newFenetreParametre extends Stage
 		grid.add(labelParamNashor, 0, 5);	
 		grid.add(labelParamAnnulateur, 0, 6);	
 		grid.add(labelParamSounds, 0, 7);
-		grid.add(labelParamOverlay, 0, 8);
 
 		grid.add(tfParamBleu, 1, 0);
 		grid.add(tfParamRouge, 1, 1);
@@ -275,11 +255,10 @@ public class newFenetreParametre extends Stage
 		grid.add(tfParamNashor, 1, 5);	
 		grid.add(tfParamAnnulateur, 1, 6);	
 		grid.add(checkboxSounds, 1, 7);
-		grid.add(checkboxOverlay, 1, 8);
 
 		hbEnrAnn.getChildren().add(boutonAnnuler);
 		hbEnrAnn.getChildren().add(boutonEnregistrer);
-		grid.add(hbEnrAnn, 1, 9);
+		grid.add(hbEnrAnn, 1, 8);
 
 		setOnHiding(new EventHandler<WindowEvent>() {
 
