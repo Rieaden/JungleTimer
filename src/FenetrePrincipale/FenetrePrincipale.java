@@ -31,8 +31,7 @@ public class FenetrePrincipale extends Application {
 
 	public static void main(String[] args) throws Exception 
 	{ 
-		launch(args);
-		
+		launch(args);	
 	}
 	@Override public void start(final Stage primaryStage) throws Exception {
 
