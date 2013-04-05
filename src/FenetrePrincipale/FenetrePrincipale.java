@@ -1,9 +1,13 @@
 package FenetrePrincipale;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -28,6 +32,7 @@ public class FenetrePrincipale extends Application {
 	public static void main(String[] args) throws Exception 
 	{ 
 		launch(args);
+		
 	}
 	@Override public void start(final Stage primaryStage) throws Exception {
 
@@ -46,7 +51,7 @@ public class FenetrePrincipale extends Application {
 //        GlobalScreen.getInstance().addNativeKeyListener(new GlobalKeyListenerExample());
 /***************************************************************/
 		
-		primaryStage.setTitle("L'appli qui dechire des images");  
+		primaryStage.setTitle("LoLConqueror");  
 		new KeyCombination() {};
 		final Menu menuFichier = new Menu("Fichier");
 		final Menu menuJungleTimer = new Menu("Timers Jungle");
@@ -265,8 +270,30 @@ public class FenetrePrincipale extends Application {
 		grid.add(new ButtonChampion("zilean"), 1, 11);
 		grid.add(new ButtonChampion("zyra"), 2, 11);*/
 		
-		
 		String fichier = "nomchampions.txt";
+		
+		if(!(new File(fichier)).exists())
+		{
+			(new File(fichier)).createNewFile();
+			try {
+				
+				FileWriter fw = new FileWriter (fichier);
+				BufferedWriter bw = new BufferedWriter (fw);
+				PrintWriter fichierSortie = new PrintWriter (bw); 
+
+				for(int i = 0; i < AppCore.listChampionsDefault.size(); i++)
+				{
+					fichierSortie.println(AppCore.listChampionsDefault.get(i));
+				}
+
+				fichierSortie.close();
+				System.out.println("Le fichier " + fichier + " a été créé!"); 
+			}
+			catch (Exception e1){
+				System.out.println(e1.toString());
+			}
+		}
+		
 		ArrayList<String> listChampions = new ArrayList<String>();
 		
 		try{
@@ -302,8 +329,9 @@ public class FenetrePrincipale extends Application {
 		primaryStage.setWidth((10*50) + (10*10) +  10);
 		primaryStage.setResizable(false);
 		
-		
-		grid.setStyle("-fx-background-image: url(\"file:///D:/Dev/github/JungleTimer/background.jpg\"); ");
+
+		String image = FenetrePrincipale.class.getResource("background.jpg").toExternalForm();
+		grid.setStyle("-fx-background-image: url(\"" + image +"\");");
 		primaryStage.show();
 	}
 	

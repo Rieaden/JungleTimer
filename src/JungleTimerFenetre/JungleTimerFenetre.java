@@ -5,41 +5,27 @@ package JungleTimerFenetre;
 
 
 import java.awt.GraphicsEnvironment;
-import java.awt.Paint;
-import java.awt.PaintContext;
 import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.ColorModel;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JDialog;
-
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+
+import javax.swing.JDialog;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -49,10 +35,6 @@ import org.jnativehook.keyboard.NativeKeyListener;
 import Util.AppCore;
 import Util.MiseEnFormeMinutesSecondes;
 
-
-import javafx.scene.paint.Color;
-
-import com.sun.javafx.tk.Toolkit;
 import com.sun.speech.freetts.VoiceManager;
 
 
@@ -172,7 +154,8 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 
 		HBox hbtotal = new HBox(1);
 
-		hbtotal.setStyle("-fx-background-image: url(\"file:///D:/Dev/github/JungleTimer/background.png\");");
+		String image = JungleTimerFenetre.class.getResource("images/background.png").toExternalForm();
+		hbtotal.setStyle("-fx-background-image: url(\"" + image +"\");");
 
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -274,6 +257,8 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 		jDialogReference = jDialog;
 
 		final JFXPanel fxPanel = new JFXPanel();
+		if(AppCore.stateOverlay)
+		{
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -321,11 +306,17 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 						}
 						else 
 						{
-							int dx = (int) (event.getX() - refPoint.x);
-							int dy = (int) (event.getY() - refPoint.y);
-							jDialog.setLocation(jDialog.getX() + dx ,  jDialog.getY() + dy);
-							refPoint.x = (int) event.getX();
-							refPoint.y = (int) event.getY();
+							    int thisX = jDialog.getLocation().x;
+					            int thisY = jDialog.getLocation().y;
+
+					            // Determine how much the mouse moved since the initial click
+					            int xMoved = (int) ((thisX + event.getX()) - (thisX + refPoint.x));
+					            int yMoved = (int) ((thisY + event.getY()) - (thisY + refPoint.y));
+
+					            // Move window to this position
+					            int X = thisX + xMoved;
+					            int Y = thisY + yMoved;
+					            jDialog.setLocation(X, Y);
 						}
 					}
 				});
@@ -346,7 +337,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 		jDialog.setLocation((int)(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth()/5), 0);
 		jDialog.setVisible(true);
 		jDialog.setFocusable(false);
-		
+		}
 
 	}
 
