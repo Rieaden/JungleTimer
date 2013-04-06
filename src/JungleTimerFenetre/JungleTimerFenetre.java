@@ -1,9 +1,5 @@
 package JungleTimerFenetre;
 
-
-
-
-
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.util.Set;
@@ -131,12 +127,9 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 					System.err.println("There was a problem registering the native hook.");
 					System.err.println(ex.getMessage());
 					ex.printStackTrace();
-
 					System.exit(1);
 				}
-
 				GlobalScreen.getInstance().addNativeKeyListener((NativeKeyListener) stage);
-
 			}
 				});
 
@@ -154,7 +147,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 
 		HBox hbtotal = new HBox(1);
 
-		String image = JungleTimerFenetre.class.getResource("images/background.png").toExternalForm();
+		String image = JungleTimerFenetre.class.getResource("./images/background.png").toExternalForm();
 		hbtotal.setStyle("-fx-background-image: url(\"" + image +"\");");
 
 		grid.setAlignment(Pos.CENTER);
@@ -374,7 +367,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 			if(!alreadyStartedF5)
 			{
 				alreadyStartedF5 = true;
-				System.out.println(NativeKeyEvent.getKeyText(e.getKeyCode()));
+				//System.out.println(NativeKeyEvent.getKeyText(e.getKeyCode()));
 				AppCore.TexteDragon = "Killed";
 				new Timer().schedule(
 						new TimerTask() {
@@ -424,7 +417,7 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 									if(alreadyStartedF5)
 									{
 										alreadyStartedF5 = false;
-										System.out.println(NativeKeyEvent.getKeyText(e.getKeyCode()));
+										//System.out.println(NativeKeyEvent.getKeyText(e.getKeyCode()));
 										AppCore.CompteurDragon = 360;
 										AppCore.TexteDragon = "Alive";
 										Platform.runLater(new Runnable() {
@@ -443,9 +436,9 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 						}, 0, 1000);
 			}
 		}
-		System.out.println(AppCore.inputBleu);
-		System.out.println(NativeKeyEvent.getKeyText(e.getKeyCode()));
-		System.out.println("'" + AppCore.inputBleu + "' = '" + NativeKeyEvent.getKeyText(e.getKeyCode()) + "'");
+		//System.out.println(AppCore.inputBleu);
+		//System.out.println(NativeKeyEvent.getKeyText(e.getKeyCode()));
+		//System.out.println("'" + AppCore.inputBleu + "' = '" + NativeKeyEvent.getKeyText(e.getKeyCode()) + "'");
 
 		if (NativeKeyEvent.getKeyText(e.getKeyCode()).equals(AppCore.inputBleu)) 
 		{
@@ -845,8 +838,8 @@ public class JungleTimerFenetre extends Stage implements NativeKeyListener
 			shiftKeyPressed = true;
 		}
 
-		System.out.println("ANNULATEUR : " + AppCore.inputAnnulateur);
-		System.out.println("GROS TEST ICI " + e.getRawCode());
+		//System.out.println("ANNULATEUR : " + AppCore.inputAnnulateur);
+		//System.out.println("GROS TEST ICI " + e.getRawCode());
 
 	}
 
